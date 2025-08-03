@@ -162,15 +162,17 @@ class Tests(unittest.TestCase):
     
     def test_calc_instructions(self):
         result = self.run_python_file("calculator", "main.py")
-        test = '''STDOUT:Calculator App
+        test = '''STDOUT:
+Calculator App
 Usage: python main.py "<expression>"
 Example: python main.py "3 + 5"
 '''
         self.assertEqual(result, test)
 
-    def test_morelorem(self):
+    def test_calculate(self):
         result = self.run_python_file("calculator", "main.py", ["3 + 5"])
-        test = '''STDOUT:┌─────────┐
+        test = '''STDOUT:
+┌─────────┐
 │  3 + 5  │
 │         │
 │  =      │
@@ -180,9 +182,15 @@ Example: python main.py "3 + 5"
 '''
         self.assertEqual(result, test)
 
-    def test_no_output(self):
+    def test_calculator_tests(self):
         result = self.run_python_file("calculator", "tests.py")
-        test = 'No output produced.'
+        test = '''STDERR:
+.........
+----------------------------------------------------------------------
+Ran 9 tests in 0.001s
+
+OK
+'''
         self.assertEqual(result, test)
 
     def test_invalid_dir(self):
