@@ -1,7 +1,8 @@
 import unittest
 # from functions.get_files_info import get_files_info
 # from functions.get_file_content import get_file_content
-from functions.write_file import write_file
+# from functions.write_file import write_file
+from functions.run_python_file import run_python_file
 
 # class Tests(unittest.TestCase):
 #     def setUp(self):
@@ -132,23 +133,66 @@ from functions.write_file import write_file
 #         test = 'Error: File not found or is not a regular file: "pkg/does_not_exist.py"'
 #         self.assertEqual(result, test)
 
+# class Tests(unittest.TestCase):
+#     def setUp(self):
+#         self.write_file = write_file
+    
+#     def test_lorem(self):
+#         result = self.write_file("calculator", "lorem.txt", "wait, this isn't lorem ipsum")
+#         test = 'Successfully wrote to "lorem.txt" (28 characters written)'
+#         self.assertEqual(result, test)
+
+#     def test_morelorem(self):
+#         result = self.write_file("calculator", "pkg/morelorem.txt", "lorem ipsum dolor sit amet")
+#         test = 'Successfully wrote to "pkg/morelorem.txt" (26 characters written)'
+#         self.assertEqual(result, test)
+
+#     def test_not_allowed(self):
+#         result = self.write_file("calculator", "/tmp/temp.txt", "this should not be allowed")
+#         test = 'Error: Cannot write to "/tmp/temp.txt" as it is outside the permitted working directory'
+#         self.assertEqual(result, test)
+
+
+# if __name__ == "__main__":
+#     unittest.main()
+
 class Tests(unittest.TestCase):
     def setUp(self):
-        self.write_file = write_file
+        self.run_python_file = run_python_file
     
-    def test_lorem(self):
-        result = self.write_file("calculator", "lorem.txt", "wait, this isn't lorem ipsum")
-        test = 'Successfully wrote to "lorem.txt" (28 characters written)'
+    def test_calc_instructions(self):
+        result = self.run_python_file("calculator", "main.py")
+        test = '''STDOUT:Calculator App
+Usage: python main.py "<expression>"
+Example: python main.py "3 + 5"
+'''
         self.assertEqual(result, test)
 
     def test_morelorem(self):
-        result = self.write_file("calculator", "pkg/morelorem.txt", "lorem ipsum dolor sit amet")
-        test = 'Successfully wrote to "pkg/morelorem.txt" (26 characters written)'
+        result = self.run_python_file("calculator", "main.py", ["3 + 5"])
+        test = '''STDOUT:┌─────────┐
+│  3 + 5  │
+│         │
+│  =      │
+│         │
+│  8      │
+└─────────┘
+'''
         self.assertEqual(result, test)
 
-    def test_not_allowed(self):
-        result = self.write_file("calculator", "/tmp/temp.txt", "this should not be allowed")
-        test = 'Error: Cannot write to "/tmp/temp.txt" as it is outside the permitted working directory'
+    def test_no_output(self):
+        result = self.run_python_file("calculator", "tests.py")
+        test = 'No output produced.'
+        self.assertEqual(result, test)
+
+    def test_invalid_dir(self):
+        result = self.run_python_file("calculator", "../main.py")
+        test = 'Error: Cannot execute "../main.py" as it is outside the permitted working directory'
+        self.assertEqual(result, test)
+
+    def test_nonexistent(self):
+        result = self.run_python_file("calculator", "nonexistent.py")
+        test = 'Error: File "nonexistent.py" not found.'
         self.assertEqual(result, test)
 
 

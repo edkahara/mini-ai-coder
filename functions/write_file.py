@@ -22,5 +22,5 @@ def write_file(working_directory, file_path, content):
         print(error)
         return error
 
-if __name__ == "__main__":
-    write_file("calculator", "/tmp/temp.txt", "this should not be allowed")
+# if __name__ == "__main__":
+#     write_file("calculator", "/tmp/temp.txt", "this should not be allowed")
