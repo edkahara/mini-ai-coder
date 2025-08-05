@@ -40,5 +40,5 @@ def run_python_file(working_directory, file_path, args=[]):
         print(error)
         return error
 
-if __name__ == "__main__":
-    run_python_file("calculator", "main.py", ["3 + 5"])
+# if __name__ == "__main__":
+#     run_python_file("calculator", "main.py", ["3 + 5"])

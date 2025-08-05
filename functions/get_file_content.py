@@ -1,4 +1,5 @@
 import os
+from config import MAX_CHARS
 
 def get_file_content(working_directory, file_path):
     try:
@@ -16,8 +17,6 @@ def get_file_content(working_directory, file_path):
             error = f'Error: File not found or is not a regular file: "{file_path}"'
             print(error)
             return error
-
-        MAX_CHARS = 10000
 
         with open(absolute_path, "r") as f:
             stripped = f.read().strip()
