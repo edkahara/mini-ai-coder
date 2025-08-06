@@ -1,4 +1,5 @@
-import os    
+import os  
+from google.genai import types  
 
 def write_file(working_directory, file_path, content):
     try:
@@ -24,3 +25,21 @@ def write_file(working_directory, file_path, content):
 
 # if __name__ == "__main__":
 #     write_file("calculator", "/tmp/temp.txt", "this should not be allowed")
+
+schema_write_file = types.FunctionDeclaration(
+    name="write_file",
+    description="Writes content to a file.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="The directory of the file to write to. If not provided, a file will be written in the working directory. If the path is not part of the working directory, an error will be thrown.",
+            ),
+            "content": types.Schema(
+                type=types.Type.STRING,
+                description="The content to write.",
+            ),
+        },
+    ),
+)

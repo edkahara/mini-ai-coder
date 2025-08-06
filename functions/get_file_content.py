@@ -1,4 +1,5 @@
 import os
+from google.genai import types
 from config import MAX_CHARS
 
 def get_file_content(working_directory, file_path):
@@ -32,3 +33,17 @@ def get_file_content(working_directory, file_path):
 
 # if __name__ == "__main__":
 #     get_file_content("calculator", "main.py")
+
+schema_get_file_content = types.FunctionDeclaration(
+    name="get_file_content",
+    description="Gets the contents of a file up to 1000 characters.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="The directory of the file. If not provided, or the path is not part of the working directory, an error will be thrown.",
+            ),
+        },
+    ),
+)

@@ -1,5 +1,6 @@
 import os  
 import subprocess
+from google.genai import types
 
 def run_python_file(working_directory, file_path, args=[]):
     try:
@@ -42,3 +43,21 @@ def run_python_file(working_directory, file_path, args=[]):
 
 # if __name__ == "__main__":
 #     run_python_file("calculator", "main.py", ["3 + 5"])
+
+schema_run_python_file = types.FunctionDeclaration(
+    name="run_python_file",
+    description="Runs a python file.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="The directory of the file to run. If not provided, or the path is not part of the working directory, an error will be thrown.",
+            ),
+            "content": types.Schema(
+                type=types.Type.STRING,
+                description="The content to write.",
+            ),
+        },
+    ),
+)

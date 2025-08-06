@@ -13,6 +13,7 @@ def get_files_info(working_directory, directory="."):
         error = f"{header}\n\tError: Cannot list '{directory}' as it is outside the permitted working directory"
         print(error)
         return error
+
     if not os.path.isdir(absolute_path):
         error = f"{header}\n\tError: '{directory}' is not a directory"
         print(error)
@@ -39,7 +40,7 @@ schema_get_files_info = types.FunctionDeclaration(
         properties={
             "directory": types.Schema(
                 type=types.Type.STRING,
-                description="The directory to list files from, relative to the working directory. If not provided, lists files in the working directory itself.",
+                description="The directory to list files from, relative to the working directory. If not provided, or the path is not a directory, lists files in the working directory itself. If the path is not part of the working directory, an error will be thrown.",
             ),
         },
     ),
