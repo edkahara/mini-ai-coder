@@ -4,6 +4,7 @@ from functions.get_files_info import get_files_info, schema_get_files_info
 from functions.get_file_content import get_file_content, schema_get_file_content
 from functions.write_file import write_file, schema_write_file
 from functions.run_python_file import run_python_file, schema_run_python_file
+from config import WORKING_DIRECTORY
 
 available_functions = types.Tool(
     function_declarations=[
@@ -38,7 +39,7 @@ def call_function(function_call_part, verbose=False):
             ],
         )
 
-    arguments = {'working_directory': './calculator'}
+    arguments = {'working_directory': WORKING_DIRECTORY}
     arguments.update(function_call_part.args)
     function_result = functions[function_call_part.name](**arguments)
 
